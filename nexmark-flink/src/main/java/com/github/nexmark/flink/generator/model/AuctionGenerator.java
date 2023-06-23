@@ -1,20 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.nexmark.flink.generator.model;
 
 import com.github.nexmark.flink.model.Auction;
@@ -44,9 +27,14 @@ public class AuctionGenerator {
   public static Auction nextAuction(
       long eventsCountSoFar, long eventId, Random random, long timestamp, GeneratorConfig config) {
 
+    /**
+     * lastBase0AuctionId = local method
+     * GeneratorConfig may have Flink dependencies (if so, maybe static variable instead)
+     */
     long id = lastBase0AuctionId(config, eventId) + GeneratorConfig.FIRST_AUCTION_ID;
 
     long seller;
+
     // Here P(auction will be for a hot seller) = 1 - 1/hotSellersRatio.
     if (random.nextInt(config.getHotSellersRatio()) > 0) {
       // Choose the first person in the batch of last HOT_SELLER_RATIO people.
@@ -54,6 +42,8 @@ public class AuctionGenerator {
     } else {
       seller = PersonGenerator.nextBase0PersonId(eventId, random, config);
     }
+
+    //Seems to be a constant added to various values, like an offset?
     seller += GeneratorConfig.FIRST_PERSON_ID;
 
     long category = GeneratorConfig.FIRST_CATEGORY_ID + random.nextInt(NUM_CATEGORIES);
@@ -62,8 +52,11 @@ public class AuctionGenerator {
     String name = StringsGenerator.nextString(random, 20);
     String desc = StringsGenerator.nextString(random, 100);
     long reserve = initialBid + PriceGenerator.nextPrice(random);
+
     int currentSize = 8 + name.length() + desc.length() + 8 + 8 + 8 + 8 + 8;
     String extra = StringsGenerator.nextExtra(random, currentSize, config.getAvgAuctionByteSize());
+
+    //Creating a new auction object
     return new Auction(
         id,
         name,
@@ -79,7 +72,7 @@ public class AuctionGenerator {
 
   /**
    * Return the last valid auction id (ignoring FIRST_AUCTION_ID). Will be the current auction id if
-   * due to generate an auction.
+   * generating an auction.
    */
   public static long lastBase0AuctionId(GeneratorConfig config, long eventId) {
     long epoch = eventId / config.totalProportion;
@@ -107,6 +100,8 @@ public class AuctionGenerator {
     // plus a few 'leads'.
     // Note that ideally we'd track non-expired auctions exactly, but that state
     // is difficult to split.
+
+    // 0 as an argument ensures choosing a number >= 0
     long minAuction =
         Math.max(lastBase0AuctionId(config, nextEventId) - config.getNumInFlightAuctions(), 0);
     long maxAuction = lastBase0AuctionId(config, nextEventId);

@@ -1,23 +1,7 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.nexmark.flink.generator.model;
 
-import org.apache.flink.table.utils.ThreadLocalCache;
+//Removing Flink dependencies
+//import org.apache.flink.table.utils.ThreadLocalCache;
 
 import com.github.nexmark.flink.generator.GeneratorConfig;
 import com.github.nexmark.flink.model.Bid;
@@ -97,9 +81,20 @@ public class BidGenerator {
 
     bidder += GeneratorConfig.FIRST_PERSON_ID;
 
+    // Don't understand why they are doing this 
     int currentSize = 8 + 8 + 8 + 8;
+
     String extra = StringsGenerator.nextExtra(random, currentSize, config.getAvgBidByteSize());
-    return new Bid(auction, bidder, price, channel, url, Instant.ofEpochMilli(timestamp), extra);
+
+    //Creating and returning new bid object
+    return new Bid(
+      auction, 
+      bidder, 
+      price, 
+      channel, 
+      url, 
+      Instant.ofEpochMilli(timestamp), 
+      extra);
   }
 
   private static String getBaseUrl() {
@@ -113,8 +108,10 @@ public class BidGenerator {
 
   private static Tuple2<String, String> getNextChannelAndurl(int channelNumber){
     Tuple2<String, String> previousValue = CHANNEL_URL_CACHE.get(channelNumber);
+
     if(previousValue == null){
       String url = getBaseUrl();
+
       if (new Random().nextInt(10) > 0) {
         url = url + "&channel_id=" + Math.abs(Integer.reverse(channelNumber));
       }

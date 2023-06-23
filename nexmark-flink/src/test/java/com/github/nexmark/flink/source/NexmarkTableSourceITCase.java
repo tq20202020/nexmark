@@ -18,27 +18,28 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.streaming.api.CheckpointingMode;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.table.api.TableResult;
-import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.types.Row;
-import org.apache.flink.util.CloseableIterator;
+//Removing Flink dependencies
+//import org.apache.flink.streaming.api.CheckpointingMode;
+//import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+//import org.apache.flink.table.api.TableResult;
+//import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+//import org.apache.flink.types.Row;
+//import org.apache.flink.util.CloseableIterator;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class NexmarkTableSourceITCase {
 
-	private StreamTableEnvironment tEnv;
-
+	//private StreamTableEnvironment tEnv;
+	/**
 	@Before
 	public void before() {
-		StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-		tEnv = StreamTableEnvironment.create(env);
-		env.setParallelism(4);
-		env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
-		env.getCheckpointConfig().setCheckpointInterval(1000L);
+		//StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		//tEnv = StreamTableEnvironment.create(env);
+		//env.setParallelism(4);
+		//env.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
+		//env.getCheckpointConfig().setCheckpointInterval(1000L);
 
 		tEnv.executeSql("CREATE TABLE nexmark (\n" +
 			"    event_type int,\n" +
@@ -332,4 +333,5 @@ public class NexmarkTableSourceITCase {
 		tEnv.executeSql("CREATE VIEW auction AS SELECT auction.* FROM nexmark WHERE event_type = 1");
 		tEnv.executeSql("CREATE VIEW bid AS SELECT bid.* FROM nexmark WHERE event_type = 2");
 	}
+	*/
 }

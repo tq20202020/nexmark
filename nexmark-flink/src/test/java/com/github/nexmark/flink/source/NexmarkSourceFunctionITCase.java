@@ -18,30 +18,53 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+//Removing Flink dependencies
+//import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
+//import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import com.github.nexmark.flink.NexmarkConfiguration;
 import com.github.nexmark.flink.generator.GeneratorConfig;
 import com.github.nexmark.flink.model.Event;
+
 import org.junit.Test;
 
 public class NexmarkSourceFunctionITCase {
 
+	/** This is currently used to run the data generator as a cluster is no longer used to control data generation.
+	 * To run, click run this test
+	 * Settings can be configured based on needs below.
+	 * @throws Exception
+	 */
 	@Test
-	public void testDataStreamSource() throws Exception {
-		StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-		env.setParallelism(4);
-		NexmarkConfiguration nexmarkConfiguration = new NexmarkConfiguration();
-		nexmarkConfiguration.bidProportion = 46;
-		GeneratorConfig generatorConfig = new GeneratorConfig(
-			nexmarkConfiguration, System.currentTimeMillis(), 1, 100, 1);
-		env.addSource(new NexmarkSourceFunction<>(
-				generatorConfig,
-				(EventDeserializer<String>) Event::toString,
-				BasicTypeInfo.STRING_TYPE_INFO))
-			.print();
+	public void testDataStream() throws Exception {
+		// Creating nexmark configuration for the data stream
+		NexmarkConfiguration nexmarkConfig = new NexmarkConfiguration();
 
-		env.execute();
+		// Populating all of the nexmark configuration settings
+		// Can be changed as deemed fit
+		nexmarkConfig.auctionProportion = 20;
+		nexmarkConfig.bidProportion = 46;
+		nexmarkConfig.personProportion = 30;
+
+		// Creating a generator configuration for the data stream 
+		// Can also be changed as necessary
+		GeneratorConfig generatorConfig = new GeneratorConfig(
+			nexmarkConfig, 
+			System.currentTimeMillis(), 
+			1, 
+			1000, 
+			1
+		);
+
+		// Trying to create a Java stream to replace the StreamExecutionEnvironment
+		System.out.println("Testing Stream");
+
+		// Opening the NexmarkSourceFunction, which uses the event deserializer to get a toString() version of it
+		NexmarkSourceFunction nexFunc = new NexmarkSourceFunction<>(generatorConfig, (EventDeserializer<String>) Event::toString);
+		nexFunc.open(null);
+		SourceContext context = new SourceContext<>();
+
+		// Used to track the events and write to the JSON file - please see class for details on implementation
+		nexFunc.run(context);
 	}
 }

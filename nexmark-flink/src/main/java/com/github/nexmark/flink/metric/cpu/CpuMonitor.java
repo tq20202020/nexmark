@@ -20,6 +20,7 @@ package com.github.nexmark.flink.metric.cpu;
 
 public class CpuMonitor {
 
+	/**
 	public static void main(String[] args) throws InterruptedException {
 		ProcfsBasedProcessTree procfsBasedProcessTree = new ProcfsBasedProcessTree(args[0]);
 		procfsBasedProcessTree.updateProcessTree();
@@ -29,4 +30,5 @@ public class CpuMonitor {
 			System.out.println(System.currentTimeMillis() / 1000 +" "+ procfsBasedProcessTree.getCpuUsagePercent());
 		}
 	}
+	*/
 }

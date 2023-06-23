@@ -18,30 +18,34 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.table.api.TableSchema;
-import org.apache.flink.table.connector.ChangelogMode;
-import org.apache.flink.table.connector.source.DynamicTableSource;
-import org.apache.flink.table.connector.source.ScanTableSource;
-import org.apache.flink.table.connector.source.SourceFunctionProvider;
-import org.apache.flink.table.data.RowData;
+// Removing Flink dependencies
+//import org.apache.flink.api.common.typeinfo.TypeInformation;
+//import org.apache.flink.table.api.TableSchema;
+//import org.apache.flink.table.connector.ChangelogMode;
+//import org.apache.flink.table.connector.source.DynamicTableSource;
+//import org.apache.flink.table.connector.source.ScanTableSource;
+//import org.apache.flink.table.connector.source.SourceFunctionProvider;
+//import org.apache.flink.table.data.RowData;
 
 import com.github.nexmark.flink.generator.GeneratorConfig;
 
 import java.util.Objects;
 
-import static org.apache.flink.table.api.DataTypes.BIGINT;
-import static org.apache.flink.table.api.DataTypes.FIELD;
-import static org.apache.flink.table.api.DataTypes.INT;
-import static org.apache.flink.table.api.DataTypes.ROW;
-import static org.apache.flink.table.api.DataTypes.STRING;
-import static org.apache.flink.table.api.DataTypes.TIMESTAMP;
+// Removing Flink dependencies
+//import static org.apache.flink.table.api.DataTypes.BIGINT;
+//import static org.apache.flink.table.api.DataTypes.FIELD;
+//import static org.apache.flink.table.api.DataTypes.INT;
+//import static org.apache.flink.table.api.DataTypes.ROW;
+//import static org.apache.flink.table.api.DataTypes.STRING;
+//import static org.apache.flink.table.api.DataTypes.TIMESTAMP;
 
 /**
  * Table source for Nexmark.
+ * Original included: implements ScanTableSource
  */
-public class NexmarkTableSource implements ScanTableSource {
+public class NexmarkTableSource {
 
+	/**
 	public static final TableSchema NEXMARK_SCHEMA = TableSchema.builder()
 		.field("event_type", INT())
 		.field("person", ROW(
@@ -127,4 +131,5 @@ public class NexmarkTableSource implements ScanTableSource {
 			"config=" + config +
 			'}';
 	}
+	*/
 }

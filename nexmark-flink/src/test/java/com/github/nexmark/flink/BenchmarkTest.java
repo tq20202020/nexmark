@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 @Ignore
 public class BenchmarkTest {
 
+	/**
 	@Test
 	public void testPrintSummary() {
 		LinkedHashMap<String, JobBenchmarkMetric> totalMetrics = new LinkedHashMap<>();
@@ -47,5 +48,5 @@ public class BenchmarkTest {
 		totalMetrics.put("q14", new JobBenchmarkMetric(1_000_000.0, 8.4));
 		Benchmark.printSummary(totalMetrics);
 	}
-
+	*/
 }

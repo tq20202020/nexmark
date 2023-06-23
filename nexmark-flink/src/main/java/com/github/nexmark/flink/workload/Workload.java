@@ -18,7 +18,7 @@
 
 package com.github.nexmark.flink.workload;
 
-import org.apache.flink.util.Preconditions;
+//import org.apache.flink.util.Preconditions;
 
 import com.github.nexmark.flink.FlinkNexmarkOptions;
 import com.github.nexmark.flink.metric.BenchmarkMetric;
@@ -100,6 +100,7 @@ public class Workload {
 	public long getWarmupEvents() {
 		return warmupEvents;
 	}
+	/**
 
 	public void validateWorkload(Duration monitorDuration) {
 		boolean unboundedMonitor = monitorDuration.toMillis() == Long.MAX_VALUE;
@@ -160,4 +161,5 @@ public class Workload {
 			", kafkaServers=" + kafkaServers +
 			'}';
 	}
+	*/
 }

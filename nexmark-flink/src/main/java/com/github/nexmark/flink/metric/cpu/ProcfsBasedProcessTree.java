@@ -24,8 +24,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.AndFileFilter;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.ArrayUtils;
+//import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,6 +53,7 @@ import java.util.regex.Pattern;
  */
 public class ProcfsBasedProcessTree {
 
+	/**
 	private static final String PROCFS = "/proc/";
 
 	private static final String SELF = "self";
@@ -85,6 +86,7 @@ public class ProcfsBasedProcessTree {
 			this.name = name;
 		}
 
+		/**
 		public static MemInfo getMemInfoByName(String name) {
 			String searchName = StringUtils.trimToNull(name);
 			for (MemInfo info : MemInfo.values()) {
@@ -94,6 +96,7 @@ public class ProcfsBasedProcessTree {
 			}
 			return INVALID;
 		}
+		
 	}
 
 	public static final String SMAPS = "smaps";
@@ -152,7 +155,6 @@ public class ProcfsBasedProcessTree {
 	 * @param pid       root of the process tree
 	 * @param procfsDir the root of a proc file system - only used for testing.
 	 * @param clock     clock for controlling time for testing
-	 */
 	public ProcfsBasedProcessTree(String pid, String procfsDir, Clock clock, boolean smapsEnabled) {
 		this.clock = clock;
 		this.pid = getValidPID(pid);
@@ -168,7 +170,6 @@ public class ProcfsBasedProcessTree {
 	/**
 	 * Update process-tree with latest state. If the root-process is not alive,
 	 * tree will be empty.
-	 */
 	public void updateProcessTree() {
 		if (!pid.equals(deadPid)) {
 			// Get the list of processes
@@ -260,7 +261,6 @@ public class ProcfsBasedProcessTree {
 	 * Verify that the given process id is same as its process group id.
 	 *
 	 * @return true if the process id matches else return false.
-	 */
 	public boolean checkPidPgrpidForMatch() {
 		return checkPidPgrpidForMatch(pid, PROCFS);
 	}
@@ -290,7 +290,6 @@ public class ProcfsBasedProcessTree {
 	 *
 	 * @return a string concatenating the dump of information of all the processes
 	 * in the process-tree
-	 */
 	public String getProcessTreeDump() {
 		StringBuilder ret = new StringBuilder();
 		// The header.
@@ -360,7 +359,6 @@ public class ProcfsBasedProcessTree {
 	 * @return rss memory used by the process-tree in bytes, for
 	 * processes older than this age. return {@link #UNAVAILABLE} if it cannot
 	 * be calculated.
-	 */
 	private long getSmapBasedRssMemorySize(int olderThanAge) {
 		long total = UNAVAILABLE;
 		for (ProcessInfo p : processTree.values()) {
@@ -438,7 +436,6 @@ public class ProcfsBasedProcessTree {
 	 *
 	 * @return percentage CPU usage since the process-tree was created,
 	 * {@link #UNAVAILABLE} if CPU usage cannot be calculated or not available.
-	 */
 	public float getCpuUsagePercent() {
 		BigInteger processTotalJiffies = getTotalProcessJiffies();
 		cpuTimeTracker.updateElapsedJiffies(processTotalJiffies,
@@ -459,7 +456,6 @@ public class ProcfsBasedProcessTree {
 
 	/**
 	 * Get the list of all processes in the system.
-	 */
 	private List<String> getProcessList() {
 		List<String> processList = Collections.emptyList();
 		FileFilter procListFileFilter = new AndFileFilter(
@@ -476,6 +472,7 @@ public class ProcfsBasedProcessTree {
 		}
 		return processList;
 	}
+	*/
 
 	/**
 	 * Construct the ProcessInfo using the process' PID and procfs rooted at the
@@ -487,7 +484,6 @@ public class ProcfsBasedProcessTree {
 	 * @param pinfo     ProcessInfo that needs to be updated
 	 * @param procfsDir root of the proc file system
 	 * @return updated ProcessInfo, null on errors.
-	 */
 	private static ProcessInfo constructProcessInfo(ProcessInfo pinfo,
 													String procfsDir) {
 		ProcessInfo ret = null;
@@ -540,7 +536,6 @@ public class ProcfsBasedProcessTree {
 	/**
 	 * Returns a string printing PIDs of process present in the
 	 * ProcfsBasedProcessTree. Output format : [pid pid ..]
-	 */
 	@Override
 	public String toString() {
 		StringBuffer pTree = new StringBuffer("[ ");
@@ -554,14 +549,12 @@ public class ProcfsBasedProcessTree {
 	/**
 	 * Returns boolean indicating whether pid
 	 * is in process tree.
-	 */
 	public boolean contains(String pid) {
 		return processTree.containsKey(pid);
 	}
 
 	/**
 	 * Class containing information of a process.
-	 */
 	private static class ProcessInfo {
 		private String pid; // process-id
 		private String name; // command name
@@ -726,7 +719,6 @@ public class ProcfsBasedProcessTree {
 	 *
 	 * @param pInfo
 	 * @param procfsDir
-	 */
 	private static void constructProcessSMAPInfo(ProcessTreeSmapMemInfo pInfo,
 												 String procfsDir) {
 		BufferedReader in = null;
@@ -772,7 +764,6 @@ public class ProcfsBasedProcessTree {
 
 	/**
 	 * Placeholder for process's SMAPS information
-	 */
 	static class ProcessTreeSmapMemInfo {
 		private String pid;
 		private List<ProcessSmapMemoryInfo> memoryInfoList;
@@ -816,7 +807,6 @@ public class ProcfsBasedProcessTree {
 	 *  proportional to the number of processes which have mapped the page.
 	 *
 	 * </pre>
-	 */
 	static class ProcessSmapMemoryInfo {
 		private int size;
 		private int rss;
@@ -882,6 +872,7 @@ public class ProcfsBasedProcessTree {
 			return anonymous;
 		}
 
+		/**
 		public void setMemInfo(String key, String value) {
 			MemInfo info = MemInfo.getMemInfoByName(key);
 			int val = 0;
@@ -926,6 +917,7 @@ public class ProcfsBasedProcessTree {
 			}
 		}
 
+
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("\t").append(this.getName()).append("\n");
@@ -961,7 +953,6 @@ public class ProcfsBasedProcessTree {
 	 * Test the {@link ProcfsBasedProcessTree}
 	 *
 	 * @param args
-	 */
 	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.out.println("Provide <pid of process to monitor>");
@@ -994,4 +985,5 @@ public class ProcfsBasedProcessTree {
 		System.out.println("Rss mem usage in bytes " + procfsBasedProcessTree
 			.getRssMemorySize());
 	}
+	*/
 }

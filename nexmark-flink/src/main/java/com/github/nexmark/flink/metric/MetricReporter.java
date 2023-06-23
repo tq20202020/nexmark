@@ -18,8 +18,9 @@
 
 package com.github.nexmark.flink.metric;
 
-import org.apache.flink.api.common.time.Deadline;
-import org.apache.flink.api.java.tuple.Tuple2;
+// Removing Flink dependencies
+//import org.apache.flink.api.common.time.Deadline;
+//import org.apache.flink.api.java.tuple.Tuple2;
 
 import com.github.nexmark.flink.metric.cpu.CpuMetricReceiver;
 import com.github.nexmark.flink.metric.tps.TpsMetric;
@@ -41,6 +42,7 @@ import static com.github.nexmark.flink.metric.BenchmarkMetric.formatDoubleValue;
  */
 public class MetricReporter {
 
+	/** No longer need this.
 	private static final Logger LOG = LoggerFactory.getLogger(MetricReporter.class);
 
 	private final Duration monitorDelay;
@@ -221,4 +223,5 @@ public class MetricReporter {
 			}
 		}
 	}
+	*/
 }

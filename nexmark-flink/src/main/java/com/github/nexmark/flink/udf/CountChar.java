@@ -17,16 +17,19 @@
  */
 package com.github.nexmark.flink.udf;
 
-import org.apache.flink.table.annotation.DataTypeHint;
-import org.apache.flink.table.annotation.FunctionHint;
-import org.apache.flink.table.data.StringData;
-import org.apache.flink.table.functions.ScalarFunction;
+// Removing Flink dependencies
+//import org.apache.flink.table.annotation.DataTypeHint;
+//import org.apache.flink.table.annotation.FunctionHint;
+//import org.apache.flink.table.data.StringData;
+//import org.apache.flink.table.functions.ScalarFunction;
 
 /**
  * User defined function tou count number of specified characters.
+ * Original Included: extends ScalarFunction
  */
-public class CountChar extends ScalarFunction {
+public class CountChar {
 
+	/**
 	public long eval(@DataTypeHint("STRING") StringData s, @DataTypeHint("STRING") StringData character) {
 		long count = 0;
 		if (null != s) {
@@ -40,4 +43,5 @@ public class CountChar extends ScalarFunction {
 		}
 		return count;
 	}
+	*/
 }

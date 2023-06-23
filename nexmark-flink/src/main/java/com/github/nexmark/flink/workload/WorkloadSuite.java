@@ -18,10 +18,10 @@
 
 package com.github.nexmark.flink.workload;
 
-import org.apache.flink.configuration.Configuration;
+//import org.apache.flink.configuration.Configuration;
 
 import com.github.nexmark.flink.source.NexmarkSourceOptions;
-import org.apache.flink.util.TimeUtils;
+//import org.apache.flink.util.TimeUtils;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class WorkloadSuite {
 	private static final String WORKLOAD_SUITE_CONF_PREFIX = "nexmark.workload.suite.";
 	private static final String QUERIES_CONF_SUFFIX = ".queries";
 	private static final String TPS_CONF_SUFFIX = ".tps";
-	private static final String EVENTS_NUM_CONF_SUFFIX = "." + NexmarkSourceOptions.EVENTS_NUM.key();
+	//private static final String EVENTS_NUM_CONF_SUFFIX = "." + NexmarkSourceOptions.EVENTS_NUM.key();
 	private static final String WARMUP_SUFFIX = ".warmup";
 	private static final String WARMUP_DURATION_SUFFIX = ".warmup.duration";
 	private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka.bootstrap.servers";
@@ -74,6 +74,7 @@ public class WorkloadSuite {
 			'}';
 	}
 
+	/** 
 	public static WorkloadSuite fromConf(Configuration nexmarkConf, String category) {
 		Map<String, String> confMap = nexmarkConf.toMap();
 		Set<String> suites = new HashSet<>();
@@ -175,5 +176,5 @@ public class WorkloadSuite {
 		}
 		return result;
 	}
-
+	*/
 }

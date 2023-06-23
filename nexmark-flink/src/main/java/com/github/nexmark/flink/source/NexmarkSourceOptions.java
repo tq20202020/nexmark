@@ -18,10 +18,11 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.configuration.ConfigOption;
-import org.apache.flink.configuration.ConfigOptions;
-import org.apache.flink.configuration.MemorySize;
-import org.apache.flink.configuration.ReadableConfig;
+// Removing Flink dependencies
+//import org.apache.flink.configuration.ConfigOption;
+//import org.apache.flink.configuration.ConfigOptions;
+//import org.apache.flink.configuration.MemorySize;
+//import org.apache.flink.configuration.ReadableConfig;
 
 import com.github.nexmark.flink.utils.NexmarkUtils;
 import com.github.nexmark.flink.NexmarkConfiguration;
@@ -32,7 +33,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#rateShape
-	 */
 	public static final ConfigOption<NexmarkUtils.RateShape> RATE_SHAPE = ConfigOptions
 		.key("rate.shape")
 		.enumType(NexmarkUtils.RateShape.class)
@@ -40,7 +40,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#ratePeriodSec
-	 */
 	public static final ConfigOption<Duration> RATE_PERIOD = ConfigOptions
 		.key("rate.period")
 		.durationType()
@@ -48,7 +47,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#isRateLimited
-	 */
 	public static final ConfigOption<Boolean> RATE_LIMITED = ConfigOptions
 		.key("rate.limited")
 		.booleanType()
@@ -56,7 +54,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#firstEventRate
-	 */
 	public static final ConfigOption<Integer> FIRST_EVENT_RATE = ConfigOptions
 		.key("first-event.rate")
 		.intType()
@@ -64,7 +61,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#nextEventRate
-	 */
 	public static final ConfigOption<Integer> NEXT_EVENT_RATE = ConfigOptions
 		.key("next-event.rate")
 		.intType()
@@ -72,7 +68,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#avgPersonByteSize
-	 */
 	public static final ConfigOption<MemorySize> PERSON_AVG_SIZE = ConfigOptions
 		.key("person.avg-size")
 		.memoryType()
@@ -80,7 +75,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#avgAuctionByteSize
-	 */
 	public static final ConfigOption<MemorySize> AUCTION_AVG_SIZE = ConfigOptions
 		.key("auction.avg-size")
 		.memoryType()
@@ -88,7 +82,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#avgBidByteSize
-	 */
 	public static final ConfigOption<MemorySize> BID_AVG_SIZE = ConfigOptions
 		.key("bid.avg-size")
 		.memoryType()
@@ -96,7 +89,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#personProportion
-	 */
 	public static final ConfigOption<Integer> PERSON_PROPORTION = ConfigOptions
 		.key("person.proportion")
 		.intType()
@@ -104,7 +96,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#auctionProportion
-	 */
 	public static final ConfigOption<Integer> AUCTION_PROPORTION = ConfigOptions
 		.key("auction.proportion")
 		.intType()
@@ -112,7 +103,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#bidProportion
-	 */
 	public static final ConfigOption<Integer> BID_PROPORTION = ConfigOptions
 		.key("bid.proportion")
 		.intType()
@@ -120,7 +110,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#hotAuctionRatio
-	 */
 	public static final ConfigOption<Integer> BID_HOT_RATIO_AUCTIONS = ConfigOptions
 		.key("bid.hot-ratio.auctions")
 		.intType()
@@ -128,7 +117,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#hotBiddersRatio
-	 */
 	public static final ConfigOption<Integer> BID_HOT_RATIO_BIDDERS = ConfigOptions
 		.key("bid.hot-ratio.bidders")
 		.intType()
@@ -136,7 +124,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#hotSellersRatio
-	 */
 	public static final ConfigOption<Integer> AUCTION_HOT_RATIO_SELLERS = ConfigOptions
 		.key("auction.hot-ratio.sellers")
 		.intType()
@@ -144,7 +131,6 @@ public class NexmarkSourceOptions {
 
 	/**
 	 * @see NexmarkConfiguration#numEvents
-	 */
 	public static final ConfigOption<Long> EVENTS_NUM = ConfigOptions
 		.key("events.num")
 		.longType()
@@ -171,8 +157,5 @@ public class NexmarkSourceOptions {
 
 		return nexmarkConf;
 	}
-
-
-
-
+	*/
 }

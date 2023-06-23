@@ -18,9 +18,10 @@
 
 package com.github.nexmark.flink.utils;
 
-import org.apache.flink.annotation.Internal;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.IllegalConfigurationException;
+// Removing Flink dependencies
+//import org.apache.flink.annotation.Internal;
+//import org.apache.flink.configuration.Configuration;
+//import org.apache.flink.configuration.IllegalConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +37,11 @@ import java.io.InputStreamReader;
 /**
  * Global configuration object for Flink Nexmark. Similar to Java properties configuration
  * objects it includes key-value pairs which represent the framework's configuration.
+ * @Internal
  */
-@Internal
 public final class NexmarkGlobalConfiguration {
+
+	/**
 
 	private static final Logger LOG = LoggerFactory.getLogger(org.apache.flink.configuration.GlobalConfiguration.class);
 
@@ -56,7 +59,6 @@ public final class NexmarkGlobalConfiguration {
 	 * tests and local execution/debugging don't have this environment variable set. That's why we should fail
 	 * if it is not set.
 	 * @return Returns the Configuration
-	 */
 	public static Configuration loadConfiguration() {
 		return loadConfiguration(new Configuration());
 	}
@@ -67,7 +69,6 @@ public final class NexmarkGlobalConfiguration {
 	 *
 	 * @param dynamicProperties The given dynamic properties
 	 * @return Returns the loaded global configuration with dynamic properties
-	 */
 	public static Configuration loadConfiguration(Configuration dynamicProperties) {
 		final String configDir = System.getenv("NEXMARK_CONF_DIR");
 		if (configDir == null) {
@@ -84,7 +85,6 @@ public final class NexmarkGlobalConfiguration {
 	 *
 	 * @param configDir
 	 *        the directory which contains the configuration files
-	 */
 	public static Configuration loadConfiguration(final String configDir) {
 		return loadConfiguration(configDir, null);
 	}
@@ -96,7 +96,6 @@ public final class NexmarkGlobalConfiguration {
 	 * @param configDir directory to load the configuration from
 	 * @param dynamicProperties configuration file containing the dynamic properties. Null if none.
 	 * @return The configuration loaded from the given configuration directory
-	 */
 	public static Configuration loadConfiguration(final String configDir, @Nullable final Configuration dynamicProperties) {
 
 		if (configDir == null) {
@@ -147,7 +146,6 @@ public final class NexmarkGlobalConfiguration {
 	 *
 	 * @param file the YAML file to read from
 	 * @see <a href="http://www.yaml.org/spec/1.2/spec.html">YAML 1.2 specification</a>
-	 */
 	private static Configuration loadYAMLResource(File file) {
 		final Configuration config = new Configuration();
 
@@ -190,4 +188,5 @@ public final class NexmarkGlobalConfiguration {
 
 		return config;
 	}
+	*/
 }

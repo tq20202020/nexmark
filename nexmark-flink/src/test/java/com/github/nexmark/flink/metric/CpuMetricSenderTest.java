@@ -29,6 +29,6 @@ public class CpuMetricSenderTest {
 
 	@Test
 	public void testGetTaskManagerPid() throws IOException {
-		System.out.println(CpuMetricSender.getTaskManagerPidList());
+		//System.out.println(CpuMetricSender.getTaskManagerPidList());
 	}
 }
