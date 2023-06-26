@@ -14,24 +14,24 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.util.Preconditions;
 
 import com.github.nexmark.flink.generator.NexmarkGenerator;
-import com.github.nexmark.flink.model.Bid;
-import com.github.nexmark.flink.model.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.std.NumberSerializers.LongSerializer;
+import com.github.nexmark.flink.ConsumerThread;
+import com.github.nexmark.flink.DataReporter;
 import com.github.nexmark.flink.generator.GeneratorConfig;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import com.github.nexmark.flink.source.SourceContext;
 
-import javax.security.auth.login.Configuration;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.LongSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import java.util.Properties;
+import java.io.FileReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /** Have to re-write entire NexmarkSourceFunction.java
  * Entirely depended on Flink with its setup, data types, etc
@@ -53,6 +53,7 @@ public class NexmarkSourceFunction<T> {
 	/** Flag to make the source cancelable. */
 	private volatile boolean isRunning = true;
 	
+	// Since Flink is no longer being used, this attribute was removed
 	//private transient ListState<Long> checkpointedState;
 
 	public NexmarkSourceFunction(GeneratorConfig config, EventDeserializer<T> deserializer) {
@@ -63,6 +64,7 @@ public class NexmarkSourceFunction<T> {
 		//this.resultType = resultType;
 	}
 
+	// This opens a new NexmarkGenerator object based on the entered configuration
 	public void open(Map<String, Object> parameters) throws Exception {
 		this.generator = new NexmarkGenerator(this.config);
 	}
@@ -95,8 +97,10 @@ public class NexmarkSourceFunction<T> {
 				//System.out.println(next);
 
 				// JSON Formatting
-				String json = objectMapper.writeValueAsString(next);
-				publishMessage(json);
+				//String json = objectMapper.writeValueAsString(next);
+
+				//System.out.println(json);
+				//publishMessage(next);
 
 				// Debugging to see JSON string
 				//System.out.println(json);
@@ -107,16 +111,76 @@ public class NexmarkSourceFunction<T> {
 
 		// Writing to the JSON file
 		ctx.writeJson();
+
+		// Initializes the Consumer Kafka
+		consumerKafka();
+
+		// Delaying time to give time for setup of Consumer Kafka
+		TimeUnit time = TimeUnit.SECONDS;
+		time.sleep(60);
+
+		// Using the Producer Kafka side now
+		sendKafka(ctx.jsonFormat());
+
+		// Delaying time to give time for the records to be created and 
+		time.sleep(60);
 	}
 
-	// Autowiring Kafka Template
-    @Autowired KafkaTemplate<String, String> kafkaTemplate;
-	private static final String TOPIC = "NewEvent";
+	/** Note:
+	 *  The work in the following work below this comment involving Kafka is largely based on the Microsoft tutorial for implementing Kafka with Event Hubs.
+	 *  Link: https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/event-hubs/event-hubs-java-get-started-send.md
+	 */
+	// Topic is Event as events: Person, Auction, Bid are being sent and received
+    private final static String TOPIC = "Event";
 
-    // Annotation
-    @PostMapping("/publish")
-    public void publishMessage(@RequestBody String event) throws Exception {
-        // Sending the message
-        System.out.println(kafkaTemplate.send(TOPIC, event).toString());
+	// Not using Flink, only have 1 thread
+    private final static int NUM_THREADS = 1;
+
+	// Producer side of Kafka
+    private static void sendKafka(ArrayList<String> messages) throws Exception {
+        //Create Kafka Producer
+        final Producer<Long, String> producer = createProducer();
+
+        Thread.sleep(5000);
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+
+		// Only have 1, but preserving this structure gives later flexibility should more be added
+        for (int i = 0; i < NUM_THREADS; i++) {
+            executorService.execute(new DataReporter(producer, TOPIC, messages));
+		}
+    }
+
+	// Creates Producer for Kafka
+    private static Producer<Long, String> createProducer() {
+        try{
+            Properties properties = new Properties();
+
+			// Loading the properties configuration for producer
+            properties.load(new FileReader("C:\\Users\\t-thodan\\OneDrive - Microsoft\\nexmarkdatagen\\nexmark-flink\\src\\producer.config"));
+            properties.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
+            properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+            properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+            return new KafkaProducer<>(properties);
+        } catch (Exception e){
+            System.out.println("Failed to create producer with exception: " + e);
+            System.exit(0);
+
+			// Return statement is required
+            return null;
+        }
+    }
+
+
+	// Initializes the consumer end of Kafka
+    public static void consumerKafka() throws Exception {
+
+		// Uses the same number of threads as Producer
+        final ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+
+		// Again, preserving this structure to allow for greater flexibility in the future should the number of threads be increased
+        for (int i = 0; i < NUM_THREADS; i++) {
+            executorService.execute(new ConsumerThread(TOPIC));
+        }
     }
 }

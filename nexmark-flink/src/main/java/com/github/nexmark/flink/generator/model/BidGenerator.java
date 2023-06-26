@@ -5,11 +5,9 @@ package com.github.nexmark.flink.generator.model;
 
 import com.github.nexmark.flink.generator.GeneratorConfig;
 import com.github.nexmark.flink.model.Bid;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.time.Instant;
 import java.util.Random;
-
 import static com.github.nexmark.flink.generator.model.StringsGenerator.nextString;
 
 /** Generates bids. */
@@ -81,7 +79,6 @@ public class BidGenerator {
 
     bidder += GeneratorConfig.FIRST_PERSON_ID;
 
-    // Don't understand why they are doing this 
     int currentSize = 8 + 8 + 8 + 8;
 
     String extra = StringsGenerator.nextExtra(random, currentSize, config.getAvgBidByteSize());

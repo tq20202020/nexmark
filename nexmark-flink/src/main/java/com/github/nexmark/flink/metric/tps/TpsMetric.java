@@ -27,11 +27,8 @@ package com.github.nexmark.flink.metric.tps;
 //import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
 
 import com.github.nexmark.flink.utils.NexmarkUtils;
-
 import javax.annotation.Nullable;
-
 import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
 /**

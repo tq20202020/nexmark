@@ -2,12 +2,10 @@ package com.github.nexmark.flink.generator.model;
 
 import com.github.nexmark.flink.model.Person;
 import com.github.nexmark.flink.generator.GeneratorConfig;
-
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
 import static com.github.nexmark.flink.generator.model.StringsGenerator.nextExtra;
 import static com.github.nexmark.flink.generator.model.StringsGenerator.nextString;
 

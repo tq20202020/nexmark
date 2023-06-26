@@ -2,7 +2,6 @@ package com.github.nexmark.flink.generator.model;
 
 import com.github.nexmark.flink.model.Auction;
 import com.github.nexmark.flink.generator.GeneratorConfig;
-
 import java.time.Instant;
 import java.util.Random;
 

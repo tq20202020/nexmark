@@ -28,7 +28,6 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.table.data.RowData;
 
 import com.github.nexmark.flink.generator.GeneratorConfig;
-
 import java.util.Objects;
 
 // Removing Flink dependencies

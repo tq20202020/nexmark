@@ -26,7 +26,6 @@ package com.github.nexmark.flink.source;
 
 import com.github.nexmark.flink.utils.NexmarkUtils;
 import com.github.nexmark.flink.NexmarkConfiguration;
-
 import java.time.Duration;
 
 public class NexmarkSourceOptions {

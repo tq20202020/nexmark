@@ -12,6 +12,8 @@ public class SourceContext<T> {
     private ArrayList<T> items;
 
     // Could implement as private to make a getter method
+    // Currently tracks whether it is open and generating events
+    // Based off of the implementation of SourceContext in Flink
     public boolean isRunning;
 
     public SourceContext() {
@@ -105,6 +107,7 @@ public class SourceContext<T> {
 
             // Appending JSON formatted String to file
             fw.append(result);
+            // Appending new line for clarity between events and improved readability
             fw.append("\n");
         }
 
