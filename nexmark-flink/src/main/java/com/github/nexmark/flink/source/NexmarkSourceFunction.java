@@ -65,7 +65,7 @@ public class NexmarkSourceFunction<T> {
 	}
 
 	// This opens a new NexmarkGenerator object based on the entered configuration
-	public void open(Map<String, Object> parameters) throws Exception {
+	public void open() throws Exception {
 		this.generator = new NexmarkGenerator(this.config);
 	}
 

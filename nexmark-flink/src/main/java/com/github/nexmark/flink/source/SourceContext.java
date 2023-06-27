@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /** Newly added class to mimic the functionality of SourceContext from Flink */
 public class SourceContext<T> {
