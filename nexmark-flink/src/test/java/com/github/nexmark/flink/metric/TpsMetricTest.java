@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 
 public class TpsMetricTest {
 
-	/**
 	@Test
 	public void testParseJson() {
 		String json = "[\n" +
@@ -48,5 +47,5 @@ public class TpsMetricTest {
 			10006.3);
 		assertEquals(expected, tps);
 	}
-	*/
+
 }

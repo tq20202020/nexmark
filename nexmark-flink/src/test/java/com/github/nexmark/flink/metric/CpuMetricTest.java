@@ -21,19 +21,21 @@ package com.github.nexmark.flink.metric;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.github.nexmark.flink.metric.cpu.CpuMetric;
-import com.github.nexmark.flink.utils.NexmarkUtils;
+//import com.github.nexmark.flink.utils.NexmarkUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 public class CpuMetricTest {
 
 	@Test
 	public void testCpuMetric() throws JsonProcessingException {
 		List<CpuMetric> cpuMetrics = new ArrayList<>();
+
+		// Since Flink dependencies were removed, this test is no longer applicable to the new Java data generator
 		//cpuMetrics.add(new CpuMetric("10.0.0.12", 37927, 1.01));
 		//cpuMetrics.add(new CpuMetric("10.1.0.33", 54389, 2.3));
 		//cpuMetrics.add(new CpuMetric("10.2.0.44", 4401, 0.4));
@@ -42,6 +44,4 @@ public class CpuMetricTest {
 		//List<CpuMetric> expected = CpuMetric.fromJsonArray(result);
 		//assertEquals(expected, cpuMetrics);
 	}
-
-
 }

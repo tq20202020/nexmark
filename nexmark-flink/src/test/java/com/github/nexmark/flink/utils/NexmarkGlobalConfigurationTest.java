@@ -31,6 +31,9 @@ import static org.junit.Assert.assertEquals;
 
 public class NexmarkGlobalConfigurationTest {
 
+	// This test has been commented out as it tested aspects of the Flink configuration
+	// Since Flink has been removed, it is no longer relevant to testing the current setup that
+	// uses the Java Streaming API.
 	/**
 	@Test
 	public void testLoadConfiguration() {

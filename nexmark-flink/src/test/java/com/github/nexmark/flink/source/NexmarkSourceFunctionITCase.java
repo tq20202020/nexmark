@@ -61,7 +61,7 @@ public class NexmarkSourceFunctionITCase {
 
 		// Opening the NexmarkSourceFunction, which uses the event deserializer to get a toString() version of it
 		NexmarkSourceFunction nexFunc = new NexmarkSourceFunction<>(generatorConfig, (EventDeserializer<String>) Event::toString);
-		nexFunc.open(null);
+		nexFunc.open();
 		SourceContext context = new SourceContext<>();
 
 		// Used to track the events and write to the JSON file - please see class for details on implementation

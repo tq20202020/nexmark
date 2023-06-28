@@ -43,6 +43,8 @@ public class WorkloadSuiteTest {
 
 	private static final String CATEGORY_CEP = "cep";
 
+	// The following tests have been commented out as they tested various aspects of the Flink
+	// configuration, which have been removed from this project.
 	/**
 	@Test
 	public void testCustomizedConf() {

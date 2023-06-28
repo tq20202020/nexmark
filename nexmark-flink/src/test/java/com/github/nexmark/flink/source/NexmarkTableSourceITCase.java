@@ -31,6 +31,8 @@ import org.junit.Test;
 
 public class NexmarkTableSourceITCase {
 
+	// The following class has been commented out as it used Flink, which has been removed
+	// from this project now.
 	//private StreamTableEnvironment tEnv;
 	/**
 	@Before

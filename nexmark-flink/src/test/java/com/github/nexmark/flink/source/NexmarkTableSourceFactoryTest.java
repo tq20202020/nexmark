@@ -45,7 +45,8 @@ import static org.junit.Assert.assertEquals;
 public class NexmarkTableSourceFactoryTest {
 
 
-	/** Original Test that Uses Flink and its Respective Properties
+	// The following tests are commented out as they use Flink
+	/**
 	@Test
 	public void testCommonProperties() {
 		Map<String, String> properties = getAllOptions();
@@ -119,7 +120,6 @@ public class NexmarkTableSourceFactoryTest {
 		return options;
 	}
 
-	/**
 	private static DynamicTableSource createTableSource(Map<String, String> options) {
 		return FactoryUtil.createTableSource(
 			null,
