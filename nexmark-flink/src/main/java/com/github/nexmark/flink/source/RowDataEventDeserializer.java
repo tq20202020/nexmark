@@ -24,10 +24,10 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.table.data.StringData;
 //import org.apache.flink.table.data.TimestampData;
 
-import com.github.nexmark.flink.model.Auction;
-import com.github.nexmark.flink.model.Bid;
-import com.github.nexmark.flink.model.Event;
-import com.github.nexmark.flink.model.Person;
+// import com.github.nexmark.flink.model.Auction;
+// import com.github.nexmark.flink.model.Bid;
+// import com.github.nexmark.flink.model.Event;
+// import com.github.nexmark.flink.model.Person;
 
 // Original included: implements EventDeserializer<RowData>
 public class RowDataEventDeserializer {

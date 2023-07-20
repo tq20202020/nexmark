@@ -27,8 +27,8 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.table.connector.source.SourceFunctionProvider;
 //import org.apache.flink.table.data.RowData;
 
-import com.github.nexmark.flink.generator.GeneratorConfig;
-import java.util.Objects;
+// import com.github.nexmark.flink.generator.GeneratorConfig;
+// import java.util.Objects;
 
 // Removing Flink dependencies
 //import static org.apache.flink.table.api.DataTypes.BIGINT;

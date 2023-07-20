@@ -5,12 +5,10 @@ package com.github.nexmark.flink;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /** Note:
  *  The work in the following class involving Kafka is largely based on the Microsoft tutorial for implementing Kafka with Event Hubs.
@@ -61,18 +59,22 @@ public class ConsumerThread implements Runnable {
     private Consumer<Long, String> createConsumer() {
         try {
             final Properties properties = new Properties();
-            synchronized (ConsumerThread.class) {
-                properties.put(ConsumerConfig.CLIENT_ID_CONFIG, "KafkaExampleConsumer#" + id);
-                id++;
-            }
 
-            // Added from initial setup as process required a group ID
-            properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "nexmarktests");
+            AtomicInteger id = new AtomicInteger(0);
+            properties.put(ConsumerConfig.CLIENT_ID_CONFIG, "KafkaExampleConsumer#" + id.getAndIncrement());
+
+            // Setting up the properties for the Kafka Consumer
+
+            // Insert event hub namespace here
+            properties.put("bootstrap.servers", "<insert event hub namespace>.servicebus.windows.net:9093");
+            properties.put("security.protocol", "SASL_SSL");
+            properties.put("sasl.mechanism", "PLAIN");
+
+            // Insert connection string where it says to, by password=
+            properties.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"<insert connection string>\";");
+            properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "nexmarkdata");
             properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
             properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-
-            //Get remaining properties from config file
-            properties.load(new FileReader("C:\\Users\\t-thodan\\OneDrive - Microsoft\\nexmarkdatagen\\nexmark-flink\\src\\consumer.config"));
 
             // Create the consumer using properties.
             Consumer<Long, String> consumer = new KafkaConsumer<>(properties);
@@ -81,14 +83,8 @@ public class ConsumerThread implements Runnable {
             consumer.subscribe(Collections.singletonList(TOPIC));
             return consumer;
             
-        } catch (FileNotFoundException e){
-            System.out.println("FileNotFoundException: " + e);
-            System.exit(1);
-
-            // Requires a return statement
-            return null;        
-        } catch (IOException e){
-            System.out.println("IOException: " + e);
+        } catch (Exception e){
+            System.out.println("Exception: " + e);
             System.exit(1);
 
             // Requires a return statement

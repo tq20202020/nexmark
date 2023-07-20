@@ -24,9 +24,9 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.configuration.MemorySize;
 //import org.apache.flink.configuration.ReadableConfig;
 
-import com.github.nexmark.flink.utils.NexmarkUtils;
-import com.github.nexmark.flink.NexmarkConfiguration;
-import java.time.Duration;
+// import com.github.nexmark.flink.utils.NexmarkUtils;
+// import com.github.nexmark.flink.NexmarkConfiguration;
+// import java.time.Duration;
 
 public class NexmarkSourceOptions {
 

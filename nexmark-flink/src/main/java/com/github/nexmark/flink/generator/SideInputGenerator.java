@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Write data to be read as a side input.
@@ -31,14 +30,17 @@ public class SideInputGenerator {
 
 	// Populates the sideinput.txt file with its input
 	// Unsure if column names want to be added to it down the line
-	public void prepareSideInput(int sideInputRowCount, String path) throws IOException {
-		List<String> result = new ArrayList<>();
+	public ArrayList<String> prepareSideInput(int sideInputRowCount, String path) throws IOException {
+		ArrayList<String> result = new ArrayList<>();
 
 		for (int i = 0; i < sideInputRowCount; i++) {
-			result.add(i + "," + i);
+			String value = "{\"key\":" + i + ",\"value\":" + i + "}";
+			result.add(value);
 		}
 
+		// Used to create a local copy of sideinput.txt
 		FileUtils.writeLines(new File(path), "UTF-8", result);
+		return result;
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {

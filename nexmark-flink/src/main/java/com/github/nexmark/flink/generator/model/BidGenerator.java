@@ -1,8 +1,5 @@
 package com.github.nexmark.flink.generator.model;
 
-//Removing Flink dependencies
-//import org.apache.flink.table.utils.ThreadLocalCache;
-
 import com.github.nexmark.flink.generator.GeneratorConfig;
 import com.github.nexmark.flink.model.Bid;
 import java.util.concurrent.ConcurrentHashMap;

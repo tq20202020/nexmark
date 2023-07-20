@@ -27,15 +27,12 @@ public class DataReporter implements Runnable {
 
     @Override
     public void run() {
-        // Debugging:
-        //System.out.println(this.messages.size());
-
         // Iterates through all messages
         for(int i = 0; i < this.messages.size(); i++) {    
             
             // Debugging information
             long time = System.currentTimeMillis();
-            System.out.println("Test Data #" + i + " from thread #" + Thread.currentThread().getId());
+            System.out.println("Test Data #" + i + " from thread #" + Thread.currentThread().threadId());
             
             // Creating a ProducerRecord of the topic ("Event"), time, and message
             ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(TOPIC, time, messages.get(i));
@@ -52,6 +49,6 @@ public class DataReporter implements Runnable {
         }
 
         // Debugging - confirmation of whether everything was sent successfully
-        System.out.println("Finished sending " + this.messages.size() + " messages from thread #" + Thread.currentThread().getId() + "!");
+        System.out.println("Finished sending " + this.messages.size() + " messages from thread #" + Thread.currentThread().threadId() + "!");
     }
 }

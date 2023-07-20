@@ -27,12 +27,12 @@ package com.github.nexmark.flink.source;
 //import org.apache.flink.table.factories.DynamicTableSourceFactory;
 //import org.apache.flink.table.factories.FactoryUtil;
 
-import com.github.nexmark.flink.generator.GeneratorConfig;
-import com.github.nexmark.flink.NexmarkConfiguration;
+// import com.github.nexmark.flink.generator.GeneratorConfig;
+// import com.github.nexmark.flink.NexmarkConfiguration;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.Collections;
+// import java.util.HashSet;
+// import java.util.Set;
 
 // Original included: implements DynamicTableSourceFactory
 public class NexmarkTableSourceFactory {

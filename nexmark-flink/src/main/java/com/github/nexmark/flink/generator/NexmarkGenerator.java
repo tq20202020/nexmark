@@ -1,8 +1,5 @@
 package com.github.nexmark.flink.generator;
 
-//Removed Flink dependency
-//import org.apache.flink.streaming.runtime.operators.windowing.TimestampedValue;
-
 import com.github.nexmark.flink.generator.model.AuctionGenerator;
 import com.github.nexmark.flink.generator.model.PersonGenerator;
 import com.github.nexmark.flink.model.Bid;
@@ -13,10 +10,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Random;
-
-//Removed Flink dependency
-//import static org.apache.flink.util.Preconditions.checkNotNull;
-
 
 /**
  * A generator for synthetic events. We try to make the data vaguely reasonable. We also ensure most
