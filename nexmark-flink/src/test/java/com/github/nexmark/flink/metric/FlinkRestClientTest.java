@@ -25,6 +25,8 @@ import org.junit.Test;
 @Ignore
 public class FlinkRestClientTest {
 
+	// Since Flink dependencies were removed, this test is no longer applicable
+	/**
 	@Test
 	public void testMetricsClient() {
 		FlinkRestClient client = new FlinkRestClient("localhost", 8081);
@@ -48,5 +50,5 @@ public class FlinkRestClientTest {
 		System.out.println("jobId: " + jobId);
 		client.cancelJob(jobId);
 	}
-
+	*/
 }

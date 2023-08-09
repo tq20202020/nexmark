@@ -18,13 +18,14 @@
 
 package com.github.nexmark.flink.metric.cpu;
 
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonCreator;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonInclude;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.node.ArrayNode;
+// Removing Flink Dependencies
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonCreator;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonIgnore;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonInclude;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonProperty;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.node.ArrayNode;
 
 import com.github.nexmark.flink.utils.NexmarkUtils;
 
@@ -40,6 +41,7 @@ public class CpuMetric {
 	private static final String FIELD_NAME_PID = "pid";
 	private static final String FIELD_NAME_CPU = "cpu";
 
+	/** Since this is becoming independent of Flink, no longer require this section of code.
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@JsonProperty(value = FIELD_NAME_HOST, required = true)
 	private final String host;
@@ -117,4 +119,5 @@ public class CpuMetric {
 			throw new RuntimeException(e);
 		}
 	}
+	*/
 }

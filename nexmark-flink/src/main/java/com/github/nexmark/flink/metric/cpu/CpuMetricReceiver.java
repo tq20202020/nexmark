@@ -18,7 +18,7 @@
 
 package com.github.nexmark.flink.metric.cpu;
 
-import org.apache.flink.configuration.Configuration;
+//import org.apache.flink.configuration.Configuration;
 
 import com.github.nexmark.flink.utils.NexmarkGlobalConfiguration;
 import com.github.nexmark.flink.FlinkNexmarkOptions;
@@ -40,15 +40,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.nexmark.flink.metric.cpu.CpuMetricSender.DELIMITER;
+//import static com.github.nexmark.flink.metric.cpu.CpuMetricSender.DELIMITER;
 
-public class CpuMetricReceiver implements Closeable {
+//implements Closeable
+public class CpuMetricReceiver {
 
+	/** No longer require this.
 	private static final Logger LOG = LoggerFactory.getLogger(CpuMetricReceiver.class);
 
-	/**
-	 * Server socket to listen at.
-	 */
+	Server socket to listen at.
+
 	private final ServerSocket server;
 
 	private final ConcurrentHashMap<String, Double> cpuMetrics = new ConcurrentHashMap<>();
@@ -164,5 +165,6 @@ public class CpuMetricReceiver implements Closeable {
 		CpuMetricReceiver cpuMetricReceiver = new CpuMetricReceiver(reporterAddress, reporterPort);
 		cpuMetricReceiver.runServer();
 		cpuMetricReceiver.service.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-	}
+	} 
+	*/
 }

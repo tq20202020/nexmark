@@ -18,23 +18,26 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.configuration.ConfigOption;
-import org.apache.flink.configuration.CoreOptions;
-import org.apache.flink.configuration.ReadableConfig;
-import org.apache.flink.table.api.TableSchema;
-import org.apache.flink.table.connector.source.DynamicTableSource;
-import org.apache.flink.table.factories.DynamicTableSourceFactory;
-import org.apache.flink.table.factories.FactoryUtil;
+// Removing Flink dependencies
+//import org.apache.flink.configuration.ConfigOption;
+//import org.apache.flink.configuration.CoreOptions;
+//import org.apache.flink.configuration.ReadableConfig;
+//import org.apache.flink.table.api.TableSchema;
+//import org.apache.flink.table.connector.source.DynamicTableSource;
+//import org.apache.flink.table.factories.DynamicTableSourceFactory;
+//import org.apache.flink.table.factories.FactoryUtil;
 
-import com.github.nexmark.flink.generator.GeneratorConfig;
-import com.github.nexmark.flink.NexmarkConfiguration;
+// import com.github.nexmark.flink.generator.GeneratorConfig;
+// import com.github.nexmark.flink.NexmarkConfiguration;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.Collections;
+// import java.util.HashSet;
+// import java.util.Set;
 
-public class NexmarkTableSourceFactory implements DynamicTableSourceFactory {
+// Original included: implements DynamicTableSourceFactory
+public class NexmarkTableSourceFactory {
 
+	/**
 	@Override
 	public DynamicTableSource createDynamicTableSource(Context context) {
 		final FactoryUtil.TableFactoryHelper helper = FactoryUtil.createTableFactoryHelper(this, context);
@@ -96,4 +99,5 @@ public class NexmarkTableSourceFactory implements DynamicTableSourceFactory {
 		sets.add(NexmarkSourceOptions.EVENTS_NUM);
 		return sets;
 	}
+	*/
 }

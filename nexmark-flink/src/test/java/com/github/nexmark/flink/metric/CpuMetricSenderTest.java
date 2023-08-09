@@ -29,6 +29,7 @@ public class CpuMetricSenderTest {
 
 	@Test
 	public void testGetTaskManagerPid() throws IOException {
-		System.out.println(CpuMetricSender.getTaskManagerPidList());
+		// This test is no longer necessary as Flink was removed, so what it was originally testing is no longer applicable
+		//System.out.println(CpuMetricSender.getTaskManagerPidList());
 	}
 }

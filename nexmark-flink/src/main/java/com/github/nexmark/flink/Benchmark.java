@@ -1,24 +1,7 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.github.nexmark.flink;
 
-import org.apache.flink.configuration.Configuration;
+//Removing Flink dependency
+//import org.apache.flink.configuration.Configuration;
 
 import com.github.nexmark.flink.metric.FlinkRestClient;
 import com.github.nexmark.flink.metric.JobBenchmarkMetric;
@@ -65,6 +48,7 @@ public class Benchmark {
 
 	public static final String CATEGORY_OA = "oa";
 
+	/**
 	public static void main(String[] args) throws ParseException {
 		if (args == null || args.length == 0) {
 			throw new RuntimeException("Usage: --queries q1,q3 --category oa --location /path/to/nexmark");
@@ -88,6 +72,7 @@ public class Benchmark {
 		}
 		Path flinkDist = new File(flinkHome).toPath();
 
+		/**
 		// start metric servers
 		Configuration nexmarkConf = NexmarkGlobalConfiguration.loadConfiguration();
 		String jmAddress = nexmarkConf.get(FlinkNexmarkOptions.FLINK_REST_ADDRESS);
@@ -128,7 +113,6 @@ public class Benchmark {
 
 	/**
 	 * Returns the mapping from query name to query file path.
-	 */
 	private static List<String> getQueries(Path queryLocation, String queries, boolean isQueryOa) {
 		List<String> queryList = new ArrayList<>();
 		if (queries.equals("all")) {
@@ -305,4 +289,5 @@ public class Benchmark {
 		options.addOption(LOCATION);
 		return options;
 	}
+	*/
 }

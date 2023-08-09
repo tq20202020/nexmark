@@ -18,18 +18,21 @@
 
 package com.github.nexmark.flink.source;
 
-import org.apache.flink.table.data.GenericRowData;
-import org.apache.flink.table.data.RowData;
-import org.apache.flink.table.data.StringData;
-import org.apache.flink.table.data.TimestampData;
+// Removing Flink dependencies
+//import org.apache.flink.table.data.GenericRowData;
+//import org.apache.flink.table.data.RowData;
+//import org.apache.flink.table.data.StringData;
+//import org.apache.flink.table.data.TimestampData;
 
-import com.github.nexmark.flink.model.Auction;
-import com.github.nexmark.flink.model.Bid;
-import com.github.nexmark.flink.model.Event;
-import com.github.nexmark.flink.model.Person;
+// import com.github.nexmark.flink.model.Auction;
+// import com.github.nexmark.flink.model.Bid;
+// import com.github.nexmark.flink.model.Event;
+// import com.github.nexmark.flink.model.Person;
 
-public class RowDataEventDeserializer implements EventDeserializer<RowData> {
+// Original included: implements EventDeserializer<RowData>
+public class RowDataEventDeserializer {
 
+	/**
 	@Override
 	public RowData deserialize(Event event) {
 		return convertEvent(event);
@@ -92,5 +95,5 @@ public class RowDataEventDeserializer implements EventDeserializer<RowData> {
 		rowData.setField(6, StringData.fromString(bid.extra));
 		return rowData;
 	}
-
+	*/
 }

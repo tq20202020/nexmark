@@ -18,8 +18,9 @@
 
 package com.github.nexmark.flink.utils;
 
-import org.apache.flink.api.common.time.Deadline;
-import org.apache.flink.util.Preconditions;
+// Removing Flink dependencies
+//import org.apache.flink.api.common.time.Deadline;
+//import org.apache.flink.util.Preconditions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,14 +42,17 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-import static org.apache.flink.util.Preconditions.checkArgument;
-import static org.apache.flink.util.Preconditions.checkNotNull;
+// Removing Flink dependencies
+//import static org.apache.flink.util.Preconditions.checkArgument;
+//import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /**
  * Utility class to terminate a given {@link Process} when exiting a try-with-resources statement.
+ * Original Included: implements AutoCloseable
  */
-public class AutoClosableProcess implements AutoCloseable {
+public class AutoClosableProcess {
 
+	/**
 	private static final Logger LOG = LoggerFactory.getLogger(AutoClosableProcess.class);
 
 	private final Process process;
@@ -76,7 +80,6 @@ public class AutoClosableProcess implements AutoCloseable {
 
 	/**
 	 * Builder for most sophisticated processes.
-	 */
 	public static final class AutoClosableProcessBuilder {
 		private final String[] commands;
 		private Consumer<String> stdoutProcessor = LOG::debug;
@@ -215,4 +218,5 @@ public class AutoClosableProcess implements AutoCloseable {
 			}
 		}
 	}
+	*/
 }

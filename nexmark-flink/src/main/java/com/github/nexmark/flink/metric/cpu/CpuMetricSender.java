@@ -18,8 +18,9 @@
 
 package com.github.nexmark.flink.metric.cpu;
 
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.runtime.net.ConnectionUtils;
+// Removing Flink dependencies
+//import org.apache.flink.configuration.Configuration;
+//import org.apache.flink.runtime.net.ConnectionUtils;
 
 import com.github.nexmark.flink.utils.AutoClosableProcess;
 import com.github.nexmark.flink.utils.NexmarkGlobalConfiguration;
@@ -43,8 +44,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class CpuMetricSender implements AutoCloseable {
+// implements AutoCloseable 
+public class CpuMetricSender {
 	
+	/** No longer require this - commenting to avoid errors
 	private static final Logger LOG = LoggerFactory.getLogger(CpuMetricSender.class);
 	public static final char DELIMITER = '\n';
 
@@ -192,5 +195,6 @@ public class CpuMetricSender implements AutoCloseable {
 		CpuMetricSender sender = new CpuMetricSender(reporterAddress, reporterPort, reportInterval);
 		sender.startClient();
 		sender.service.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-	}
+	} 
+	*/
 }

@@ -20,9 +20,12 @@ package com.github.nexmark.flink.metric;
 
 import com.github.nexmark.flink.metric.tps.TpsMetric;
 import com.github.nexmark.flink.utils.NexmarkUtils;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.node.ArrayNode;
+
+// Removing Flink dependencies
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.node.ArrayNode;
+
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,13 +46,14 @@ import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.apache.flink.util.Preconditions.checkArgument;
+//import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * A HTTP client to request TPS metric to JobMaster REST API.
  */
 public class FlinkRestClient {
 
+	/** No longer need this
 	private static final Logger LOG = LoggerFactory.getLogger(FlinkRestClient.class);
 
 	private static int CONNECT_TIMEOUT = 5000;
@@ -234,4 +238,5 @@ public class FlinkRestClient {
 			throw new RuntimeException(e);
 		}
 	}
+	*/
 }

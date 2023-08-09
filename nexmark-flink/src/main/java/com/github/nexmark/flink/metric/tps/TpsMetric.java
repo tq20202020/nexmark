@@ -18,19 +18,24 @@
 
 package com.github.nexmark.flink.metric.tps;
 
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonCreator;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonInclude;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
+// Removing Flink dependencies
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonCreator;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonIgnore;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonInclude;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonProperty;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
+//import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.JsonNode;
 
 import com.github.nexmark.flink.utils.NexmarkUtils;
-
 import javax.annotation.Nullable;
-
 import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -38,7 +43,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class TpsMetric {
 
-	private static final String FIELD_NAME_ID = "id";
+    private static final String FIELD_NAME_ID = "id";
 
 	private static final String FIELD_NAME_MIN = "min";
 

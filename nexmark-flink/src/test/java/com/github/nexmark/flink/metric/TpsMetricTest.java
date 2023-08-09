@@ -47,4 +47,5 @@ public class TpsMetricTest {
 			10006.3);
 		assertEquals(expected, tps);
 	}
+
 }

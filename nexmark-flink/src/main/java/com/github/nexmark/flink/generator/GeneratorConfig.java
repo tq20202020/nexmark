@@ -1,20 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.nexmark.flink.generator;
 
 import com.github.nexmark.flink.model.Event;
@@ -34,7 +17,6 @@ public class GeneratorConfig implements Serializable {
    * synthesized dataset sizes.
    */
   public static final long FIRST_AUCTION_ID = 1000L;
-
   public static final long FIRST_PERSON_ID = 1000L;
   public static final long FIRST_CATEGORY_ID = 10L;
 
@@ -105,6 +87,7 @@ public class GeneratorConfig implements Serializable {
     this.stepLengthSec = configuration.rateShape.stepLengthSec(configuration.ratePeriodSec);
     this.baseTime = baseTime;
     this.firstEventId = firstEventId;
+
     if (maxEventsOrZero == 0) {
       // Scale maximum down to avoid overflow in getEstimatedSizeBytes.
       this.maxEvents =
@@ -128,7 +111,13 @@ public class GeneratorConfig implements Serializable {
   public GeneratorConfig copy() {
     GeneratorConfig result;
     result =
-        new GeneratorConfig(configuration, baseTime, firstEventId, maxEvents, firstEventNumber);
+        new GeneratorConfig(
+          configuration, 
+          baseTime, 
+          firstEventId, 
+          maxEvents, 
+          firstEventNumber);
+
     return result;
   }
 
@@ -139,12 +128,14 @@ public class GeneratorConfig implements Serializable {
    */
   public List<GeneratorConfig> split(int n) {
     List<GeneratorConfig> results = new ArrayList<>();
+
     if (n == 1) {
       // No split required.
       results.add(this);
     } else {
       long subMaxEvents = maxEvents / n;
       long subFirstEventId = firstEventId;
+
       for (int i = 0; i < n; i++) {
         if (i == n - 1) {
           // Don't loose any events to round-down.
@@ -154,13 +145,18 @@ public class GeneratorConfig implements Serializable {
         subFirstEventId += subMaxEvents;
       }
     }
+
     return results;
   }
 
   /** Return copy of this config except with given parameters. */
   public GeneratorConfig copyWith(long firstEventId, long maxEvents, long firstEventNumber) {
     return new GeneratorConfig(
-            configuration, baseTime, firstEventId, maxEvents, firstEventNumber);
+            configuration, 
+            baseTime, 
+            firstEventId,
+            maxEvents, 
+            firstEventNumber);
   }
 
   /** Return an estimate of the bytes needed by {@code numEvents}. */
@@ -169,6 +165,7 @@ public class GeneratorConfig implements Serializable {
         (numEvents * personProportion) / totalProportion;
     long numAuctions = (numEvents * auctionProportion) / totalProportion;
     long numBids = (numEvents * bidProportion) / totalProportion;
+
     return numPersons * configuration.avgPersonByteSize
         + numAuctions * configuration.avgAuctionByteSize
         + numBids * configuration.avgBidByteSize;
@@ -242,10 +239,16 @@ public class GeneratorConfig implements Serializable {
    * adjusted to account for {@code outOfOrderGroupSize}.
    */
   public long nextAdjustedEventNumber(long numEvents) {
+    // Number of events in out-of-order groups. 1 implies no out-of-order events. 
+    // 1000 implies every 1000 events per generator are emitted in pseudo-random order.
     long n = configuration.outOfOrderGroupSize;
+
     long eventNumber = nextEventNumber(numEvents);
     long base = (eventNumber / n) * n;
+
+    // Not sure why 953 is used, maybe a standard? 
     long offset = (eventNumber * 953) % n;
+
     return base + offset;
   }
 
@@ -254,7 +257,10 @@ public class GeneratorConfig implements Serializable {
    * so far emitted {@code numEvents}.
    */
   public long nextEventNumberForWatermark(long numEvents) {
+    // Number of events in out-of-order groups. 1 implies no out-of-order events. 
+    // 1000 implies every 1000 events per generator are emitted in pseudo-random order.
     long n = configuration.outOfOrderGroupSize;
+    
     long eventNumber = nextEventNumber(numEvents);
     return (eventNumber / n) * n;
   }

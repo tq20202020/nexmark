@@ -24,6 +24,7 @@ import org.junit.Test;
 
 public class NexmarkGeneratorTest {
 
+
 	@Test
 	public void testGenerate() {
 		NexmarkConfiguration nexmarkConfiguration = new NexmarkConfiguration();

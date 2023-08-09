@@ -1,23 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.nexmark.flink.generator;
-
-import org.apache.flink.streaming.runtime.operators.windowing.TimestampedValue;
 
 import com.github.nexmark.flink.generator.model.AuctionGenerator;
 import com.github.nexmark.flink.generator.model.PersonGenerator;
@@ -29,9 +10,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Random;
-
-import static org.apache.flink.util.Preconditions.checkNotNull;
-
 
 /**
  * A generator for synthetic events. We try to make the data vaguely reasonable. We also ensure most
@@ -117,11 +95,23 @@ public class NexmarkGenerator implements Iterator<NexmarkGenerator.NextEvent>, S
 
   public NexmarkGenerator(GeneratorConfig config, long eventsCountSoFar, long wallclockBaseTime) {
     checkNotNull(config);
+    
     this.config = config;
     this.eventsCountSoFar = eventsCountSoFar;
     this.wallclockBaseTime = wallclockBaseTime;
+
     // random generator
     this.random = new Random();
+  }
+
+  /** Cannot use default flink method so created alternative version
+   * 
+   * @param config - configuration setting 
+   */
+  private void checkNotNull(GeneratorConfig config) {
+    if (config == null) {
+      return;
+    }
   }
 
   /** Create a fresh generator according to {@code config}. */
@@ -132,6 +122,7 @@ public class NexmarkGenerator implements Iterator<NexmarkGenerator.NextEvent>, S
   /** Return a deep copy of this generator. */
   public NexmarkGenerator copy() {
     checkNotNull(config);
+
     return new NexmarkGenerator(config, eventsCountSoFar, wallclockBaseTime);
   }
 
@@ -156,6 +147,7 @@ public class NexmarkGenerator implements Iterator<NexmarkGenerator.NextEvent>, S
             config.maxEvents - newMaxEvents,
             config.firstEventNumber + newMaxEvents);
     config = config.copyWith(config.firstEventId, newMaxEvents, config.firstEventNumber);
+
     return remainConfig;
   }
 
@@ -195,6 +187,8 @@ public class NexmarkGenerator implements Iterator<NexmarkGenerator.NextEvent>, S
     long newEventId = getNextEventId();
     long rem = newEventId % config.totalProportion;
 
+    // Appears that rem relative to the proportions: auction and person determines whether a Person,
+    // Auction, or Bid is generated
     Event event;
     if (rem < config.personProportion) {
       event =

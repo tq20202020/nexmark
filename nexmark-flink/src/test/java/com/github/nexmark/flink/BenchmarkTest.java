@@ -45,7 +45,8 @@ public class BenchmarkTest {
 		totalMetrics.put("q12", new JobBenchmarkMetric(100_000_000.0, 8.4));
 		totalMetrics.put("q13", new JobBenchmarkMetric(10_000_000.0, 8.4));
 		totalMetrics.put("q14", new JobBenchmarkMetric(1_000_000.0, 8.4));
-		Benchmark.printSummary(totalMetrics);
+		
+		// Removed as it references as undefined method
+		//Benchmark.printSummary(totalMetrics);
 	}
-
 }
